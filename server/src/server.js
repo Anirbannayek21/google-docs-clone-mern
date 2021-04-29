@@ -34,6 +34,14 @@ io.on("connection", (socket) => {
     })
 })
 
+server.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'path/to/your/index.html'), function (err) {
+        if (err) {
+            res.status(500).send(err)
+        }
+    })
+})
+
 const Ddata = "";
 const findOrCreate = async (id) => {
     if (id == null) return
