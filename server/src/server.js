@@ -34,14 +34,6 @@ io.on("connection", (socket) => {
     })
 })
 
-app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname, '../client/public/index.html'), function (err) {
-        if (err) {
-            res.status(500).send(err)
-        }
-    })
-})
-
 const Ddata = "";
 const findOrCreate = async (id) => {
     if (id == null) return
@@ -58,5 +50,13 @@ if (process.env.NODE_ENV == "production") {
         res.sendFile(path.resolve(__dirname, "client", 'build', 'index.html'))
     })
 }
+
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, '../../../client/public/index.html'), function (err) {
+        if (err) {
+            res.status(500).send(err)
+        }
+    })
+})
 
 server.listen(PORT, () => { console.log(`server running on ${PORT}`) })
