@@ -1,9 +1,11 @@
-
+const express = require("express")
 const mongoose = require('mongoose')
 const dotenv = require("dotenv")
 const Document = require("./model/Document")
 dotenv.config({ path: "src/config.env" })
 
+const app = express();
+const server = require("http").server(app)
 mongoose.connect(process.env.MONGOODB_DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -13,11 +15,7 @@ mongoose.connect(process.env.MONGOODB_DATABASE, {
 
 const PORT = process.env.PORT || 3001
 
-const io = require("socket.io")(PORT, {
-    cors: {
-        methods: ['GET', "POST"]
-    }
-})
+const io = require("socket.io")(server)
 
 io.on("connection", (socket) => {
     console.log(socket);
@@ -52,3 +50,5 @@ if (process.env.NODE_ENV == "production") {
         res.sendFile(path.resolve(__dirname, "client", 'build', 'index.html'))
     })
 }
+
+server.listen(PORT, () => { console.log(`server running on ${PORT}`) })
