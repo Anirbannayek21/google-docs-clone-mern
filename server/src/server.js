@@ -5,7 +5,7 @@ const Document = require("./model/Document")
 dotenv.config({ path: "src/config.env" })
 
 const app = express();
-const server = require("http").server(app)
+const server = require("http").Server(app)
 mongoose.connect(process.env.MONGOODB_DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
